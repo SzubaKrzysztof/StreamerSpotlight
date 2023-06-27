@@ -9,14 +9,14 @@ type HeroSectionProps = {
     heroGraphic?: JSX.Element;
 };
 
-export const HeroBanner: FunctionComponent<HeroSectionProps> = ({ heroTitle,  heroSubtitle, heroDescription, heroGraphic }) => {
+export const HeroBanner: FunctionComponent<HeroSectionProps> = ({ heroTitle, heroSubtitle, heroDescription, heroGraphic }) => {
     return (
         <div>
             <Box
                 sx={{
-                    background: #2e2e31,
+                    background: '#2e2e31',
                     display: 'flex',
-                    flexDirection:'column',
+                    flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
                     minHeight: '100vh',
@@ -50,7 +50,6 @@ export const HeroBanner: FunctionComponent<HeroSectionProps> = ({ heroTitle,  he
                         </Box>
                     </Grid>
                 </Grid>
-
             </Box>
         </div>
     );

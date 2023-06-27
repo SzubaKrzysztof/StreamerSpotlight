@@ -4,7 +4,6 @@ import axios from 'axios';
 import { UserListItem } from './UserListItem';
 import UserDialog from './UserDialog';
 import { formatError } from '../../../helpers/errorUtils';
-import baseUrl from '../../../const/baseUrl.js';
 
 interface DataFetcherProps {
     activeContent: string;
@@ -206,7 +205,7 @@ export const DataFetcher: React.FC<DataFetcherProps> = ({ activeContent }) => {
 
                 {items.map(item => (
                     <Box key={item.id}>
-                        <UserListItem onUserDeleted={handleUserDeleted} user={item as UserItem} />
+                        <UserListItem user={item as UserItem} />
                     </Box>
                 ))}
                 <Button

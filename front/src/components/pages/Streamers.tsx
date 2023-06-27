@@ -83,7 +83,7 @@ const AdminPage: React.FC = () => {
                         </Typography>
                     </Box>
                     <Box sx={{ mb: 5, width: '100%', display: 'flex', justifyContent: 'center', alignContent: 'end' }}>
-                        <Button variant="contained" color="secondary" onClick={handleLogout}>
+                        <Button variant="contained" color="secondary">
                             <AccountBoxIcon sx={{ mr: 2 }} />
                             Logout
                         </Button>

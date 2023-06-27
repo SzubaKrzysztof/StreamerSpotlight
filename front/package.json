@@ -1,0 +1,44 @@
+{
+    "name": "streamer-spotlight",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "lint": "eslint --ext .js,.jsx,.ts,.tsx src"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@mui/icons-material": "^5.11.11",
+        "@mui/lab": "^5.0.0-alpha.124",
+        "@mui/material": "^5.11.14",
+        "@vitejs/plugin-react": "^3.1.0",
+        "log4js": "^6.9.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-helmet": "^6.1.0",
+        "react-router-dom": "^6.9.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.28",
+        "@types/react-dom": "^18.0.11",
+        "@types/react-helmet": "^6.1.6",
+        "@typescript-eslint/eslint-plugin": "^5.56.0",
+        "@typescript-eslint/parser": "^5.56.0",
+        "@vitejs/plugin-react-swc": "^3.0.0",
+        "eslint": "^8.36.0",
+        "eslint-config-airbnb-typescript": "^17.0.0",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-jsx-a11y": "^6.7.1",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-react": "^7.32.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "identity-obj-proxy": "^3.0.0",
+        "prettier": "^2.8.7",
+        "typescript": "^4.9.3",
+        "vite": "^4.2.0"
+    }
+}

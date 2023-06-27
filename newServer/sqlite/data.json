@@ -1,0 +1,32 @@
+{
+	"users": [
+		{
+			"id": "1",
+			"name": "theUser",
+			"description": "John",
+			"platform": "TikTok",
+			"votes": "5"
+		},
+		{
+			"id": "2",
+			"name": "theUser1",
+			"description": "John1",
+			"platform": "YouTube",
+			"votes": "5"
+		},
+		{
+			"id": "3",
+			"name": "theUser2",
+			"description": "John2",
+			"platform": "Twitter",
+			"votes": "5"
+		},
+		{
+			"id": "4",
+			"name": "theUser3",
+			"description": "John3",
+			"platform": "Twitch",
+			"votes": "5"
+		}
+	]
+}

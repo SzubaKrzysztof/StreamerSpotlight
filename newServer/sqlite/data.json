@@ -1,32 +1,49 @@
 {
-	"users": [
+	"streamers": [
 		{
 			"id": "1",
 			"name": "theUser",
 			"description": "John",
 			"platform": "TikTok",
-			"votes": "5"
+			"votes": "1"
 		},
 		{
 			"id": "2",
 			"name": "theUser1",
 			"description": "John1",
 			"platform": "YouTube",
-			"votes": "5"
+			"votes": "0"
 		},
 		{
 			"id": "3",
 			"name": "theUser2",
 			"description": "John2",
 			"platform": "Twitter",
-			"votes": "5"
+			"votes": "0"
 		},
 		{
 			"id": "4",
 			"name": "theUser3",
 			"description": "John3",
 			"platform": "Twitch",
-			"votes": "5"
+			"votes": "0"
 		}
-	]
+	],
+	"users": [
+		{
+			"id": "1",
+			"username": "admin",
+			"password": "admin"
+		},
+		{
+			"id": "2",
+			"username": "user",
+			"password": "user"
+		}
+	],
+	"UserVotes": {
+		"id": "1",
+		"user_id": "1",
+		"streamer_id": "1"
+	}
 }

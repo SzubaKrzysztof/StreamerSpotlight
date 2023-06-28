@@ -16,23 +16,86 @@ fs.readFile("data.json", "utf8", (err, data) => {
 
 		db.serialize(() => {
 			db.run(
-				"CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, platform TEXT, votes INTEGER)",
+				`CREATE TABLE IF NOT EXISTS Streamers (
+                id INTEGER PRIMARY KEY,
+                name TEXT,
+                description TEXT,
+                platform TEXT,
+                votes INTEGER
+                )`,
 				(err) => {
 					if (err) {
-						console.log("Error creating table");
+						console.log("Error creating Streamers table");
 					}
 				}
 			);
 
-			const stmt = db.prepare(
-				"INSERT INTO users (name, description, platform, votes) VALUES (?, ?, ?, ?)"
+			db.run(
+				`CREATE TABLE IF NOT EXISTS Users (
+                id INTEGER PRIMARY KEY,
+                username TEXT,
+                password TEXT
+                )`,
+				(err) => {
+					if (err) {
+						console.log("Error creating Users table");
+					}
+				}
+			);
+
+			db.run(
+				`CREATE TABLE IF NOT EXISTS UserVotes (
+                id INTEGER PRIMARY KEY,
+                user_id INTEGER,
+                streamer_id INTEGER,
+                UNIQUE(user_id, streamer_id),
+                FOREIGN KEY(user_id) REFERENCES Users(id),
+                FOREIGN KEY(streamer_id) REFERENCES Streamers(id)
+                )`,
+				(err) => {
+					if (err) {
+						console.log("Error creating UserVotes table");
+					}
+				}
+			);
+
+			const stmtStreamers = db.prepare(
+				"INSERT INTO Streamers (id, name, description, platform, votes) VALUES (?, ?, ?, ?, ?)"
+			);
+
+			jsonData.streamers.forEach((streamer) => {
+				stmtStreamers.run(
+					streamer.id,
+					streamer.name,
+					streamer.description,
+					streamer.platform,
+					streamer.votes
+				);
+			});
+
+			stmtStreamers.finalize();
+
+			const stmtUsers = db.prepare(
+				"INSERT INTO Users (id, username, password) VALUES (?, ?, ?)"
 			);
 
 			jsonData.users.forEach((user) => {
-				stmt.run(user.name, user.description, user.platform, user.votes);
+				stmtUsers.run(user.id, user.username, user.password);
 			});
 
-			stmt.finalize();
+			stmtUsers.finalize();
+
+			const stmtUserVotes = db.prepare(
+				"INSERT INTO UserVotes (id, user_id, streamer_id) VALUES (?, ?, ?)"
+			);
+
+			stmtUserVotes.run(
+				jsonData.UserVotes.id,
+				jsonData.UserVotes.user_id,
+				jsonData.UserVotes.streamer_id
+			);
+
+			stmtUserVotes.finalize();
 		});
 
 		db.close((err) => {

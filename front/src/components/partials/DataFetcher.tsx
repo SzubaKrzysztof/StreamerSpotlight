@@ -39,8 +39,6 @@ interface Tag {
     name: string;
 }
 
-const url: string = baseUrl.url;
-
 type Item = UserItem | ArticleItem;
 
 export const DataFetcher: React.FC<DataFetcherProps> = ({ activeContent }) => {
@@ -220,7 +218,7 @@ export const DataFetcher: React.FC<DataFetcherProps> = ({ activeContent }) => {
                         }
                     }}
                 >
-                    Add {activeContent === 'users' ? 'User' : 'Article'}
+                    Add streamer
                 </Button>
             </Box>
             {activeContent === 'users' && (

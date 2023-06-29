@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const streamerControllers = require("./controllers/streamerControllers");
+const userControllers = require("./controllers/userControllers");
 const logger = require("./middleware/logger");
 const authenticateJWT = require("./middleware/authMiddleware");
 
@@ -29,7 +30,7 @@ app.use((err, req, res, next) => {
 
 app.post("/user/login", userControllers.login);
 
-app.post("/streamers", streamerControllers.login);
+app.post("/streamers", streamerControllers.addStreamer);
 
 app.get("/streamers", streamerControllers.getAllStreamers);
 

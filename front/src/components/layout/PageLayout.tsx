@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Helmet } from 'react-helmet';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 interface PageLayoutProps {
     children: ReactNode;
@@ -22,12 +22,11 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children, title, description, k
                 <meta name="keywords" content={keywords} />
             </Helmet>
             <Navbar />
-
             <main>
-                <Box sx={{ position: 'relative', top: 0, left: 0 }}>
+                <Container maxWidth={false} sx={{ py: 12, mx: 0 }}>
                     {children}
                     <Footer />
-                </Box>
+                </Container>
             </main>
         </>
     );

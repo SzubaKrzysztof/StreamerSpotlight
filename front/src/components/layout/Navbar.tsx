@@ -1,37 +1,50 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemText, Button, Box } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import { useLocation } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/icons/Logo';
+import LoginDialog from '../partials/LoginDialog';
+import { useAuth } from '../../Services/AuthContext';
 
 const Navbar: React.FC = () => {
     const [open, setOpen] = React.useState(false);
-
-    const location = useLocation();
-    const pathname = location.pathname;
-    const isHomePage = pathname === '/';
+    const [loginMenuOpen, setLoginMenuOpen] = React.useState(false);
+    const { isLogged, logout } = useAuth();
+    const [user, setUser] = useState<string | null>(null);
 
     const linkColor = 'black';
+
+    useEffect(() => {
+        return setUser(localStorage.getItem('username'));
+    }, [isLogged]);
 
     const handleDrawer = () => {
         setOpen(!open);
     };
+    const handleLoginMenuToggle = () => {
+        setLoginMenuOpen(!loginMenuOpen);
+    };
 
-    const navLinks = [{ title: 'Streamers', to: '/streamers' }];
+    const handleLogout = () => {
+        logout();
+    };
+
+    const navLinks = [
+        { title: 'Home', to: '/' },
+        { title: 'Streamers', to: '/streamers' },
+    ];
 
     const appBarStyles = {
-        bgcolor: 'background.paper',
+        backgroundColor: 'success.main',
         boxShadow: 'none',
-        transition: 'background-color 0.5s ease-in-out',
     };
 
     const toolbarStyles = {
         gap: '40px',
         marginTop: {
             xs: '10px',
-            md: '50px',
+            md: '15px',
         },
     };
 
@@ -61,6 +74,15 @@ const Navbar: React.FC = () => {
                             {link.title}
                         </Typography>
                     ))}
+                    <Box>
+                        <Typography variant="body2"> {isLogged ? `Welcome, ${user}` : ''}</Typography>
+                    </Box>
+
+                    <Box display={'flex'} alignContent={'center'} justifyContent={'center'} mx={2}>
+                        <Button variant={'contained'} onClick={isLogged ? handleLogout : handleLoginMenuToggle}>
+                            {isLogged ? 'Logout' : 'Login'}
+                        </Button>
+                    </Box>
 
                     <IconButton
                         color="primary"
@@ -74,7 +96,7 @@ const Navbar: React.FC = () => {
                                 display: { xs: 'block', md: 'none' },
                                 color: linkColor,
                                 '&:hover': {
-                                    color: isHomePage ? 'secondary.main' : 'warning.main',
+                                    color: 'secondary.main',
                                 },
                             }}
                         />
@@ -111,7 +133,7 @@ const Navbar: React.FC = () => {
                                     backgroundColor: 'background.paper',
                                     '@media (hover: hover)': {
                                         '&:hover': {
-                                            backgroundColor: 'action.hover',
+                                            backgroundColor: 'primary.main',
                                         },
                                     },
                                 }}
@@ -130,11 +152,20 @@ const Navbar: React.FC = () => {
                         alignItems: 'stretch',
                     }}
                 >
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={isLogged ? handleLogout : handleLoginMenuToggle}
+                        sx={{ flexGrow: 1, borderRadius: '25px', mx: 3, mb: 2, py: 2.5 }}
+                    >
+                        {isLogged ? 'Logout' : 'Login'}
+                    </Button>
                     <Button variant="outlined" color="primary" onClick={handleDrawer} sx={{ flexGrow: 1, borderRadius: '25px', mx: 3, mb: 2, py: 2.5 }}>
                         Close
                     </Button>
                 </Box>
             </Drawer>
+            <LoginDialog open={loginMenuOpen} onClose={handleLoginMenuToggle} />
         </>
     );
 };

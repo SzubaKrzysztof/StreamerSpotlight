@@ -1,115 +1,21 @@
-:root {
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    overflow-x: hidden;
-}
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-    box-sizing: content-box;
-}
-
-body {
-    background-color: #2e2e31;
+.wrapper {
+    position: relative;
+    transform: translateX(40%) translateY(-100%);
+    -webkit-transform: translateX(40%) translateY(-100%);
+    -moz-transform: translateX(40%) translateY(-100%);
+    -ms-transform: translateX(40%) translateY(-100%);
+    -o-transform: translateX(40%) translateY(-100%);
 }
 
 .gradient {
     position: absolute;
-    bottom: 10vh;
-    right: 10vw;
-    font-size: 6vmin;
+    bottom: 20vh;
+    right: 20vw;
+    font-size: 40px;
     line-height: 1;
-    letter-spacing: 2px;
+    letter-spacing: -3px;
     -webkit-text-fill-color: transparent;
-    background: linear-gradient(90deg, #2e2e31, white, #2e2e31);
+    background: linear-gradient(90deg, #2e2e31, cccccc, #2e2e31);
     background-size: 70% 100%;
     background-repeat: no-repeat;
     -webkit-background-clip: text;
@@ -117,14 +23,14 @@ body {
 }
 
 .rotating {
-    color: #fffbf1;
+    color: #cccccc;
     text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
     font-size: 80px;
     font-weight: bold;
     text-decoration: none;
     letter-spacing: -3px;
     margin: 0;
-    transform: translateX(-50%) translateY(-50%);
+    /* transform: translateX(-50%) translateY(-50%); */
 }
 
 .rotating:before,
@@ -132,9 +38,9 @@ body {
     content: '';
     padding: 1.2em 0.6em;
     position: absolute;
-    left: 50%;
+    left: 80%;
     width: 100%;
-    top: 50%;
+    top: 80%;
     display: block;
     border: 15px solid red;
     transform: translateX(-50%) translateY(-50%) rotate(0deg);

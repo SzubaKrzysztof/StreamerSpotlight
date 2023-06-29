@@ -1,11 +1,19 @@
 import React from 'react';
-import { Box, Typography, Toolbar } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const Footer: React.FC = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const name = 'Christopher';
+
     return (
         <Box
             component="footer"
             sx={{
+                backgroundColor: 'success.main',
                 position: 'absolute',
                 bottom: 0,
                 left: 0,
@@ -26,27 +34,7 @@ const Footer: React.FC = () => {
                         width: '100%',
                     }}
                 >
-                    <Typography variant="subtitle2">About us</Typography>
-          
-                </Box>
-                <Box
-                    id="first"
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignContent: 'center',
-                        justifyContent: 'space-between',
-                        gap: 5,
-                    }}
-                >
-                    <Box id="second" sx={{ display: 'flex', gap: 5, opacity: '0.5' }}>
-                        <Typography variant="subtitle2">EU Projects</Typography>
-
-                    </Box>
-                    <Box id="last" sx={{ display: 'flex', gap: 3.25 }}>
-                        <Typography variant="subtitle2">Facebook</Typography>
-
-                    </Box>
+                    <Typography variant="subtitle1">{`${day}.${month}.${year} - ${name} | © All rights NOT reserved :)`}</Typography>
                 </Box>
             </Box>
         </Box>

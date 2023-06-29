@@ -33,7 +33,7 @@ fs.readFile("data.json", "utf8", (err, data) => {
 			db.run(
 				`CREATE TABLE IF NOT EXISTS Users (
                 id INTEGER PRIMARY KEY,
-                username TEXT,
+                user TEXT,
                 password TEXT
                 )`,
 				(err) => {
@@ -76,7 +76,7 @@ fs.readFile("data.json", "utf8", (err, data) => {
 			stmtStreamers.finalize();
 
 			const stmtUsers = db.prepare(
-				"INSERT INTO Users (id, username, password) VALUES (?, ?, ?)"
+				"INSERT INTO Users (id, user, password) VALUES (?, ?, ?)"
 			);
 
 			jsonData.users.forEach((user) => {

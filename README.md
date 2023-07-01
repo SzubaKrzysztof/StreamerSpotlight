@@ -2,7 +2,10 @@
 
 This project is a full stack application to show and edit streamers, built using React.js, Vite, TypeScript, Node.js, Express and SQLite. The app provides basic information about the streamers with functionality to upvote or downvote any streamer.
 
-![Page Screenshot](.//front/src/)
+![Page Screenshot](./screenshots/homeMedium.png)
+![Page Screenshot](./screenshots/homeSmall.png)
+![Page Screenshot](./screenshots/streamersMedium.png)
+![Page Screenshot](./screenshots/detailsMedium.png)
 
 ## Table of Contents
 

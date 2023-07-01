@@ -84,15 +84,10 @@ const Navbar: React.FC = () => {
                         </Button>
                     </Box>
 
-                    <IconButton
-                        color="primary"
-                        aria-label="open drawer"
-                        onClick={handleDrawer}
-                        edge="end"
-                        sx={{ ...(open && { display: 'none' }), marginRight: { sx: '20', md: '80px' } }}
-                    >
+                    <IconButton color="primary" aria-label="open drawer" onClick={handleDrawer} edge="end" sx={{ ...(open && { display: 'none' }) }}>
                         <MenuIcon
                             sx={{
+                                marginRight: '20px',
                                 display: { xs: 'block', md: 'none' },
                                 color: linkColor,
                                 '&:hover': {
@@ -119,30 +114,33 @@ const Navbar: React.FC = () => {
                 open={open}
                 onClose={handleDrawer}
             >
-                <List sx={{ flexGrow: 1, height: '90vh' }}>
-                    {navLinks.map((text, index) => (
-                        <ListItem key={index} component={Link} to={`/${text}`} onClick={handleDrawer} sx={{ height: 'calc(90vh / 5)' }}>
-                            <Box
-                                sx={{
-                                    margin: 5,
-                                    width: '100%',
-                                    padding: '50px',
-                                    border: '2px solid',
-                                    borderColor: 'divider',
-                                    borderRadius: '25px',
-                                    backgroundColor: 'background.paper',
-                                    '@media (hover: hover)': {
-                                        '&:hover': {
-                                            backgroundColor: 'primary.main',
-                                        },
+                {navLinks.map((text, index) => (
+                    <ListItem key={index} component={Link} to={text.to} onClick={handleDrawer} sx={{ height: 'calc(90vh / 5)' }}>
+                        <Box
+                            sx={{
+                                margin: 5,
+                                width: '100%',
+                                padding: '50px',
+                                border: '2px solid',
+                                borderColor: 'divider',
+                                borderRadius: '25px',
+                                backgroundColor: 'background.paper',
+                                '@media (hover: hover)': {
+                                    '&:hover': {
+                                        backgroundColor: 'primary.main',
                                     },
-                                }}
-                            >
-                                <ListItemText sx={{ color: 'primary' }} />
-                            </Box>
-                        </ListItem>
-                    ))}
-                </List>
+                                },
+                            }}
+                        >
+                            <ListItemText sx={{ color: 'primary' }}>
+                                <Link to={text.to} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    {text.title}
+                                </Link>
+                            </ListItemText>
+                        </Box>
+                    </ListItem>
+                ))}
+
                 <Box
                     sx={{
                         width: '100%',

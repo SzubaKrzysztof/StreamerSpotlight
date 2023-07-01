@@ -11,12 +11,15 @@ function authenticateJWT(req, res, next) {
 
 		jwt.verify(token, secretKey, (err, user) => {
 			if (err) {
+				console.error("Error during JWT verification", err);
 				return res.sendStatus(403);
 			}
 			req.user = user;
+			console.log("User set in req:", req.user);
 			next();
 		});
 	} else {
+		console.log("No authorization header");
 		res.sendStatus(401);
 	}
 }

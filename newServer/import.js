@@ -45,13 +45,14 @@ fs.readFile("data.json", "utf8", (err, data) => {
 
 			db.run(
 				`CREATE TABLE IF NOT EXISTS UserVotes (
-                id INTEGER PRIMARY KEY,
-                user_id INTEGER,
-                streamer_id INTEGER,
-                UNIQUE(user_id, streamer_id),
-                FOREIGN KEY(user_id) REFERENCES Users(id),
-                FOREIGN KEY(streamer_id) REFERENCES Streamers(id)
-                )`,
+					id INTEGER PRIMARY KEY,
+					user_id INTEGER,
+					streamer_id INTEGER,
+					voteType TEXT,
+					UNIQUE(user_id, streamer_id),
+					FOREIGN KEY(user_id) REFERENCES Users(id),
+					FOREIGN KEY(streamer_id) REFERENCES Streamers(id)
+				)`,
 				(err) => {
 					if (err) {
 						console.log("Error creating UserVotes table");

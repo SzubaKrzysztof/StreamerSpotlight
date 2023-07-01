@@ -53,6 +53,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         } catch (error) {
             enqueueSnackbar('An error occurred during login', { variant: 'error' });
             throw error;
+        } finally {
+            window.location.reload();
         }
     };
 

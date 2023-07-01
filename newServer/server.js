@@ -36,10 +36,8 @@ app.get("/streamers", streamerControllers.getAllStreamers);
 
 app.get("/streamer/:id", streamerControllers.getStreamerById);
 
-app.put("/streamer/:id", streamerControllers.updateStreamer);
-
 app.put(
-	"/streamer/:id/vote",
+	"/streamer/vote/:id",
 	authenticateJWT,
 	streamerControllers.voteStreamer
 );

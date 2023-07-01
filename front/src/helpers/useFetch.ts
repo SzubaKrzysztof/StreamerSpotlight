@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react'; // dodaj useCallback
 import axios from 'axios';
 import { formatError } from './errorUtils';
 import { baseUrl } from '../const/baseUrl';
@@ -8,8 +8,10 @@ export const useFetch = (url: string, query?: string) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<any>(null);
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         try {
+            setLoading(true);
+            setError(null);
             const res = query ? await axios.get(baseUrl + url + query) : await axios.get(baseUrl + url);
             setData(res.data);
         } catch (err) {
@@ -18,11 +20,10 @@ export const useFetch = (url: string, query?: string) => {
         } finally {
             setLoading(false);
         }
-    };
-
+    }, [url, query]);
     useEffect(() => {
         fetchData();
-    }, [query]);
+    }, [fetchData]);
 
-    return { data, loading, error };
+    return { data, loading, error, refetch: fetchData };
 };

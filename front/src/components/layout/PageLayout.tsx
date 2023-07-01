@@ -13,7 +13,13 @@ interface PageLayoutProps {
 
 const PageLayout: React.FC<PageLayoutProps> = ({ children, title, description, keywords }) => {
     return (
-        <>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '100vh',
+            }}
+        >
             <Helmet>
                 <meta charSet="utf-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -22,13 +28,18 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children, title, description, k
                 <meta name="keywords" content={keywords} />
             </Helmet>
             <Navbar />
-            <main>
+            <Box
+                component="main"
+                sx={{
+                    flex: '1',
+                }}
+            >
                 <Container maxWidth={false} sx={{ py: 12, mx: 0 }}>
                     {children}
-                    <Footer />
                 </Container>
-            </main>
-        </>
+            </Box>
+            <Footer />
+        </Box>
     );
 };
 

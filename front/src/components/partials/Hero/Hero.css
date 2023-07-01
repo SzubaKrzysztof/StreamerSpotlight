@@ -1,10 +1,5 @@
 .wrapper {
     position: relative;
-    transform: translateX(40%) translateY(-100%);
-    -webkit-transform: translateX(40%) translateY(-100%);
-    -moz-transform: translateX(40%) translateY(-100%);
-    -ms-transform: translateX(40%) translateY(-100%);
-    -o-transform: translateX(40%) translateY(-100%);
 }
 
 .gradient {
@@ -21,16 +16,18 @@
     -webkit-background-clip: text;
     animation: shade 5s linear infinite;
 }
+@media (max-width: 768px) {
+    .gradient {
+        font-size: 14px;
+    }
+}
 
 .rotating {
     color: #cccccc;
     text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
-    font-size: 80px;
     font-weight: bold;
     text-decoration: none;
     letter-spacing: -3px;
-    margin: 0;
-    /* transform: translateX(-50%) translateY(-50%); */
 }
 
 .rotating:before,
@@ -38,9 +35,9 @@
     content: '';
     padding: 1.2em 0.6em;
     position: absolute;
-    left: 80%;
+    left: 50%;
     width: 100%;
-    top: 80%;
+    top: 50%;
     display: block;
     border: 15px solid red;
     transform: translateX(-50%) translateY(-50%) rotate(0deg);

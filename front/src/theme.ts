@@ -85,7 +85,7 @@ let theme = createTheme({
         },
         body1: {
             fontSize: 14,
-            color: '#cccccc',
+            color: '#999999',
             textTransform: 'none',
         },
         body2: {

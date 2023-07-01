@@ -2,20 +2,20 @@
 
 This project is a full stack application to show and edit streamers, built using React.js, Vite, TypeScript, Node.js, Express and SQLite. The app provides basic information about the streamers with functionality to upvote or downvote any streamer.
 
-![Page Screenshot](./screenshot.png)
+![Page Screenshot](.//front/src/)
 
 ## Table of Contents
 
--   [Streamer Spotlight](#streamer-spotlight)
-    -   [Table of Contents](#table-of-contents)
-    -   [Features](#features)
-    -   [Main configurations](#main-configurations)
-    -   [Usage](#usage)
+- [Streamer Spotlight](#streamer-spotlight)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Main configurations](#main-configurations)
+  - [Usage](#usage)
 
 ## Features
 
--   Responsive design for desktop and mobile devices
--   Overview of Streamer Spotlight services and expertise
+- Responsive design for desktop and mobile devices
+- Overview of Streamer Spotlight services and expertise
 
 Add more features specific to your project.
 
@@ -23,17 +23,17 @@ Add more features specific to your project.
 
 FRONTEND
 
--   React.js 18+ with TypeScript;
--   ESLint;
--   Prettier;
--   MaterialUI
--   log4js;
+- React.js 18+ with TypeScript;
+- ESLint;
+- Prettier;
+- MaterialUI
+- log4js;
 
 BACKEND
 
--   Node.js
--   Express.js
--   SQLite
+- Node.js
+- Express.js
+- SQLite
 
 ## Usage
 

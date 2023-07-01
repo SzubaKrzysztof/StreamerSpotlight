@@ -5,7 +5,7 @@ import { ServiceName } from '../../types';
 
 interface SocialMediaIconProps {
     service: ServiceName | string;
-    large?: boolean; // Opcjonalny props large
+    large?: boolean;
 }
 
 const SocialMediaIcon: FC<SocialMediaIconProps> = ({ service, large }) => {

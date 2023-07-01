@@ -5,11 +5,10 @@ export type ScreenSize = {
     height: number;
 };
 
-export const useScreenSize = (): ScreenSize => {
-    const [screenSize, setScreenSize] = useState<ScreenSize>({
-        width: 0,
-        height: 0,
-    });
+const MOBILE_BREAKPOINT = 720;
+
+export const useIsSmallScreen = (): boolean => {
+    const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
@@ -24,11 +23,8 @@ export const useScreenSize = (): ScreenSize => {
 
     const onResize = () => {
         if (typeof window === 'undefined') return;
-        setScreenSize({
-            width: window.innerWidth,
-            height: window.innerHeight,
-        });
+        setIsSmallScreen(window.innerWidth < MOBILE_BREAKPOINT);
     };
 
-    return screenSize;
+    return isSmallScreen;
 };

@@ -29,18 +29,20 @@ export const HeroBanner: FunctionComponent<HeroSectionProps> = ({ heroTitle, her
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '35px',
+                        gap: { md: '15px', sm: '30px' },
                     }}
                 >
-                    <Grid>
+                    <Grid container spacing={3}>
                         <Grid item xs={12} md={8}>
                             <Box display="flex" className="wrapper" justifyContent="center" alignContent="center">
-                                <Box className="rotating">
-                                    {heroTitle} <br /> <span>{heroSubtitle}</span>
+                                <Box sx={{ fontSize: { sm: '30px', md: '40px' } }} className="rotating">
+                                    <Typography color="white" sx={{ fontSize: { sm: '30px', md: '40px' } }}>
+                                        {heroSubtitle}
+                                    </Typography>
                                 </Box>
                             </Box>
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid display="flex" justifyContent="center" alignContent="center" item xs={12} md={4}>
                             <Link to={'./streamers'}>
                                 <Button
                                     variant="contained"
@@ -51,7 +53,7 @@ export const HeroBanner: FunctionComponent<HeroSectionProps> = ({ heroTitle, her
                                         borderRadius: '8px',
                                     }}
                                 >
-                                    <Typography sx={{ mr: 2, color: 'white', fontSize: '40px' }}>Go to Streamers</Typography>
+                                    <Typography sx={{ mr: 2, color: 'white', fontSize: { sm: '14px', md: '20px' } }}>Streamers</Typography>
                                     <Logo color="black" />
                                 </Button>
                             </Link>

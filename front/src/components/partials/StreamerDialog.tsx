@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { Box, Button, Dialog, DialogContent, DialogTitle, TextField, CircularProgress, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import axios from 'axios';
 import { baseUrl } from '../../const/baseUrl';
+import SocialMediaIcon from './Small/SocialMediaIcon';
+import { Streamer } from '../types';
+import { SelectChangeEvent } from '@mui/material';
 
 type StreamerDialogProps = {
     open: boolean;
     onClose: () => void;
+    setStreamers: React.Dispatch<React.SetStateAction<Streamer[]>>;
 };
 
 const url: string = baseUrl;
 
-const StreamerDialog: React.FC<StreamerDialogProps> = ({ open, onClose }) => {
+const StreamerDialog: React.FC<StreamerDialogProps> = ({ open, onClose, setStreamers }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [platform, setPlatform] = useState('');
@@ -21,17 +24,24 @@ const StreamerDialog: React.FC<StreamerDialogProps> = ({ open, onClose }) => {
     const [descriptionError, setDescriptionError] = useState('');
     const [platformError, setPlatformError] = useState('');
     const { enqueueSnackbar } = useSnackbar();
-    const navigate = useNavigate();
+
+    const socialMediaStyle = { display: 'flex', alignItems: 'center' };
+    const socialMediaIconStyle = { marginLeft: '10px' };
 
     const handleSubmit = async () => {
         if (validateFields()) {
             setSubmitting(true);
             try {
-                debugger;
                 const response = await axios.post(`${url}streamers`, { name, description, platform });
                 setSubmitting(false);
                 enqueueSnackbar('Streamer added successfully', { variant: 'success' });
-                navigate('/admin');
+                if (response && response.data) {
+                    // Dodatkowe sprawdzenie
+                    const newStreamer: Streamer = response.data;
+                    setStreamers(prevStreamers => [...prevStreamers, newStreamer]);
+                } else {
+                    throw new Error('Invalid response format from server.');
+                }
             } catch (error: any) {
                 setSubmitting(false);
                 enqueueSnackbar('Error adding streamer', { variant: 'error' });
@@ -72,8 +82,8 @@ const StreamerDialog: React.FC<StreamerDialogProps> = ({ open, onClose }) => {
         setDescription(event.target.value);
     };
 
-    const handlePlatformChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setPlatform(event.target.value as string);
+    const handlePlatformChange = (event: SelectChangeEvent<string>) => {
+        setPlatform(event.target.value);
     };
 
     return (
@@ -119,21 +129,37 @@ const StreamerDialog: React.FC<StreamerDialogProps> = ({ open, onClose }) => {
                                 onChange={handlePlatformChange}
                                 error={!!platformError}
                             >
-                                <option value="TikTok">
-                                    <MenuItem value="TikTok">TikTok</MenuItem>
-                                </option>
-                                <option value="YouTube">
-                                    <MenuItem value="YouTube">YouTube</MenuItem>
-                                </option>
-                                <option value="Twitter">
-                                    <MenuItem value="Twitter">Twitter</MenuItem>
-                                </option>
-                                <option value="Twitch">
-                                    <MenuItem value="Twitch">Twitch</MenuItem>
-                                </option>
+                                <MenuItem value="TikTok">
+                                    <Box style={socialMediaStyle}>
+                                        <SocialMediaIcon service="TikTok" />
+                                        <span style={socialMediaIconStyle}>TikTok</span>
+                                    </Box>
+                                </MenuItem>
+
+                                <MenuItem value="YouTube">
+                                    <Box style={socialMediaStyle}>
+                                        <SocialMediaIcon service="YouTube" />
+                                        <span style={socialMediaIconStyle}>YouTube</span>
+                                    </Box>
+                                </MenuItem>
+
+                                <MenuItem value="Twitter">
+                                    <Box style={socialMediaStyle}>
+                                        <SocialMediaIcon service="Twitter" />
+                                        <span style={socialMediaIconStyle}>Twitter</span>
+                                    </Box>
+                                </MenuItem>
+
+                                <MenuItem value="Twitch">
+                                    <Box style={socialMediaStyle}>
+                                        <SocialMediaIcon service="Twitch" />
+                                        <span style={socialMediaIconStyle}>Twitch</span>
+                                    </Box>
+                                </MenuItem>
                             </Select>
                             {platformError && <div style={{ color: 'red' }}>{platformError}</div>}
                         </FormControl>
+
                         <Box
                             sx={{
                                 display: 'flex',
@@ -141,10 +167,10 @@ const StreamerDialog: React.FC<StreamerDialogProps> = ({ open, onClose }) => {
                                 alignItems: 'center',
                             }}
                         >
-                            <Button variant="contained" color="primary" onClick={handleSubmit} disabled={submitting}>
+                            <Button variant="contained" size="large" color="primary" onClick={handleSubmit} disabled={submitting}>
                                 {submitting ? <CircularProgress size={24} /> : 'Submit'}
                             </Button>
-                            <Button variant="outlined" color="primary" onClick={onClose}>
+                            <Button variant="outlined" size="large" color="primary" onClick={onClose}>
                                 Close
                             </Button>
                         </Box>

@@ -1,11 +1,10 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Container, Typography } from '@mui/material';
-
 import { useFetch } from '../../helpers/useFetch';
-
 import PageLayout from '../layout/PageLayout';
 import { StreamerLargeCard } from '../partials/StreamerLargeCard';
+import LoadingPage from './LoadingPage';
 
 const StreamerDetail: React.FC = () => {
     let params = useParams<Record<string, string | undefined>>();
@@ -15,10 +14,10 @@ const StreamerDetail: React.FC = () => {
     useEffect(() => {
         setStreamerId(params.streamerId);
     }, [params.streamerId]);
-    const { data, loading, error } = useFetch(`streamer/`, streamerId);
+    const { data, loading, error, refetch } = useFetch(`streamer/`, streamerId);
 
     if (loading) {
-        return <Typography variant="h4">Loading...</Typography>;
+        return <LoadingPage pageName={'streamerDetail'} />;
     }
     if (error) {
         return <Typography variant="h4">Error: {error.message}</Typography>;
@@ -32,7 +31,7 @@ const StreamerDetail: React.FC = () => {
                 <Typography variant="h2" sx={{ mt: 2, mb: 2 }}>
                     Streamer Details
                 </Typography>
-                <StreamerLargeCard streamer={data} />
+                <StreamerLargeCard streamer={data} refetch={refetch} />
             </Container>
         </PageLayout>
     );

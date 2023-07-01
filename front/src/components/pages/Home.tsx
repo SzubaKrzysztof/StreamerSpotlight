@@ -1,8 +1,7 @@
-import { Skeleton } from '@mui/lab';
 import React from 'react';
 import PageLayout from '../layout/PageLayout';
 import { HeroBanner } from '../partials/Hero/HeroBanner';
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 
 const Home: React.FC = () => {
     return (

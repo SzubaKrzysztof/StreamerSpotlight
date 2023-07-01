@@ -1,17 +1,17 @@
 import { Box, Typography, IconButton, Button, Container } from '@mui/material';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import localImage from '../../../src/assets/images/streamer.png';
 import SocialMediaIcon from './Small/SocialMediaIcon';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Streamer } from '../types';
+import VoteButton from './Small/VoteButton';
 
 interface StreamerLargeCardProps {
     streamer: Streamer;
+    refetch: () => void;
 }
 
-export const StreamerLargeCard: React.FC<StreamerLargeCardProps> = ({ streamer }) => {
+export const StreamerLargeCard: React.FC<StreamerLargeCardProps> = ({ streamer, refetch }) => {
     const navigate = useNavigate();
     return (
         <Container sx={{ border: '1px solid gray', borderRadius: '15px', px: 2 }}>
@@ -27,13 +27,9 @@ export const StreamerLargeCard: React.FC<StreamerLargeCardProps> = ({ streamer }
                     <SocialMediaIcon large service={streamer.platform} />
                 </Box>
                 <Box display="flex" gap={3} flexDirection="row" justifyContent="center" alignItems="center">
-                    <Button variant="outlined">
-                        <ArrowUpwardIcon sx={{ color: 'green' }} />
-                    </Button>
-                    <Typography variant="h6">{streamer.votes}</Typography>
-                    <Button variant="outlined">
-                        <ArrowDownwardIcon sx={{ color: 'red' }} />
-                    </Button>
+                    <VoteButton streamerId={streamer.id} voteType="upVote" refetch={refetch} />
+                    <Typography variant="h4">{streamer.votes}</Typography>
+                    <VoteButton streamerId={streamer.id} voteType="downVote" refetch={refetch} />
                 </Box>
                 <Typography variant="h6">{streamer.description}</Typography>
                 <Box mb={3}>

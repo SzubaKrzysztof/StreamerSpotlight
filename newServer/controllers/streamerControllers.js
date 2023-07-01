@@ -74,16 +74,15 @@ const getStreamerById = (req, res) => {
 };
 
 const addStreamer = (req, res) => {
-	const { name, description, platform, votes } = req.body;
-
-	if (!name || !description || !platform || !votes) {
+	const { name, description, platform } = req.body;
+	if (!name || !description || !platform) {
 		return res.status(400).send("Missing required fields");
 	}
 
-	const newStreamer = [name, description, platform, votes];
+	const newStreamer = [name, description, platform];
 
 	db.run(
-		`INSERT INTO streamers(name, description, platform, votes) VALUES(?, ?, ?, ?)`,
+		`INSERT INTO streamers(name, description, platform, votes) VALUES(?, ?, ?, 0)`,
 		newStreamer,
 		function (err) {
 			if (err) {
@@ -95,63 +94,70 @@ const addStreamer = (req, res) => {
 					name: name,
 					description: description,
 					platform: platform,
-					votes: votes,
+					votes: 0,
 				},
 			});
 		}
 	);
 };
 
-const updateStreamer = (req, res) => {
-	const { id } = req.params;
-	const newStreamer = req.body;
-	db.get(`SELECT * FROM streamers WHERE id = ?`, [id], (err, row) => {
-		if (err) {
-			throw err;
-		}
-		if (row) {
+const updateStreamerVotes = (streamerId) => {
+	console.log("Updating streamer votes" + streamerId);
+	debugger;
+	db.get(
+		`SELECT SUM(case when voteType = 'upVote' then 1 else 0 end) as upVotes,
+         SUM(case when voteType = 'downVote' then 1 else 0 end) as downVotes
+         FROM UserVotes WHERE streamer_id = ?`,
+		[streamerId],
+		(err, row) => {
+			if (err) {
+				return console.log(err.message);
+			}
+			const votes = row.upVotes - row.downVotes;
 			db.run(
-				`UPDATE streamers SET name = ?, description = ?, platform = ?, votes = ? WHERE id = ?`,
-				[
-					newStreamer.name,
-					newStreamer.description,
-					newStreamer.platform,
-					newStreamer.votes,
-					id,
-				],
-				(err) => {
+				`UPDATE Streamers SET votes = ? WHERE id = ?`,
+				[votes, streamerId],
+				function (err) {
 					if (err) {
-						return console.error(err.message);
+						return console.log(err.message);
 					}
-					res.status(200).send("Streamer updated");
 				}
 			);
-		} else {
-			res.status(404).send("Streamer not found");
 		}
-	});
+	);
 };
 
 const voteStreamer = (req, res) => {
+	console.log("Request body:", req.body);
+	console.log("User from req:", req.user);
+	console.log("Request params:", req.params);
+	debugger;
 	const { id: streamer_id } = req.params;
 	const { id: user_id } = req.user;
+	const { voteType } = req.body;
 
-	if (!isAuthenticated(req)) {
+	if (!req.user) {
 		res.status(403).send("You must be logged in to vote");
 		return;
 	}
 
-	db.get(`SELECT * FROM streamers WHERE id = ?`, [streamer_id], (err, row) => {
+	if (voteType !== "upVote" && voteType !== "downVote") {
+		res.status(400).send("Invalid vote type");
+		return;
+	}
+
+	db.get(`SELECT * FROM Streamers WHERE id = ?`, [streamer_id], (err, row) => {
 		if (err) {
+			console.error("Error when fetching streamer:", err);
 			throw err;
 		}
 		if (row) {
-			// Sprawdź, czy użytkownik już głosował na tego streamera
 			db.get(
 				`SELECT * FROM UserVotes WHERE user_id = ? AND streamer_id = ?`,
 				[user_id, streamer_id],
 				(err, row) => {
 					if (err) {
+						console.error("Error when fetching vote:", err);
 						throw err;
 					}
 
@@ -159,12 +165,14 @@ const voteStreamer = (req, res) => {
 						res.status(400).send("You have already voted for this streamer");
 					} else {
 						db.run(
-							`INSERT INTO UserVotes(user_id, streamer_id) VALUES(?, ?)`,
-							[user_id, streamer_id],
+							`INSERT INTO UserVotes(user_id, streamer_id, voteType) VALUES(?, ?, ?)`,
+							[user_id, streamer_id, voteType],
 							(err) => {
 								if (err) {
+									console.error("Error when inserting vote:", err);
 									return console.error(err.message);
 								}
+								updateStreamerVotes(streamer_id); // Aktualizacja głosów po dodaniu głosu
 								res.status(200).send("User voted");
 							}
 						);
@@ -181,6 +189,5 @@ module.exports = {
 	getAllStreamers,
 	getStreamerById,
 	addStreamer,
-	updateStreamer,
 	voteStreamer,
 };

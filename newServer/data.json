@@ -43,6 +43,7 @@
 	],
 	"UserVotes": {
 		"id": "1",
+		"voteType": "upvote",
 		"user_id": "1",
 		"streamer_id": "1"
 	}

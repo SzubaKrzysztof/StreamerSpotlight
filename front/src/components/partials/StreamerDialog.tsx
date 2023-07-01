@@ -36,7 +36,6 @@ const StreamerDialog: React.FC<StreamerDialogProps> = ({ open, onClose, setStrea
                 setSubmitting(false);
                 enqueueSnackbar('Streamer added successfully', { variant: 'success' });
                 if (response && response.data) {
-                    // Dodatkowe sprawdzenie
                     const newStreamer: Streamer = response.data;
                     setStreamers(prevStreamers => [...prevStreamers, newStreamer]);
                 } else {

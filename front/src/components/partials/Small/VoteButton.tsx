@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -44,7 +44,9 @@ const VoteButton: React.FC<VoteButtonProps> = ({ streamerId, voteType, refetch }
 
     return (
         <Button variant="outlined" size="large" onClick={vote}>
-            {voteType === 'upVote' ? 'Upvote' : 'Downvote'}
+            <Typography variant="body1" mr={2}>
+                {voteType === 'upVote' ? 'Upvote' : 'Downvote'}
+            </Typography>
             {voteType === 'upVote' ? <ArrowUpwardIcon sx={{ color: 'green' }} /> : <ArrowDownwardIcon sx={{ color: 'red' }} />}
         </Button>
     );

@@ -1,11 +1,16 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemText, Button, Box } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/icons/Logo';
 import LoginDialog from '../partials/LoginDialog';
 import { useAuth } from '../../Services/AuthContext';
+
+const navLinks = [
+    { title: 'Home', to: '/' },
+    { title: 'Streamers', to: '/streamers' },
+];
 
 const Navbar: React.FC = () => {
     const [open, setOpen] = React.useState(false);
@@ -19,21 +24,17 @@ const Navbar: React.FC = () => {
         return setUser(localStorage.getItem('username'));
     }, [isLogged]);
 
-    const handleDrawer = () => {
-        setOpen(!open);
-    };
-    const handleLoginMenuToggle = () => {
-        setLoginMenuOpen(!loginMenuOpen);
-    };
+    const handleDrawer = useCallback(() => {
+        setOpen(prevOpen => !prevOpen);
+    }, []);
 
-    const handleLogout = () => {
+    const handleLoginMenuToggle = useCallback(() => {
+        setLoginMenuOpen(prevLoginMenuOpen => !prevLoginMenuOpen);
+    }, []);
+
+    const handleLogout = useCallback(() => {
         logout();
-    };
-
-    const navLinks = [
-        { title: 'Home', to: '/' },
-        { title: 'Streamers', to: '/streamers' },
-    ];
+    }, [logout]);
 
     const appBarStyles = {
         backgroundColor: 'success.main',

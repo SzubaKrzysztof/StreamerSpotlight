@@ -1,8 +1,9 @@
+import React, { lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/pages/Home';
+import NotFoundPage from './components/pages/NotFoundPage';
 import Streamers from './components/pages/Streamers';
 import StreamerDetail from './components/pages/StreamerDetail';
-import NotFoundPage from './components/pages/NotFoundPage';
 
 const App: React.FC = () => {
     return (

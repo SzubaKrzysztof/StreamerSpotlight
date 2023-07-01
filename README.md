@@ -47,13 +47,12 @@ Before you begin, ensure you have [Node.js](https://nodejs.org/) and [npm](https
 3. Run `npm install`
 4. Go to the `backend` directory
 5. Run `npm install`
-6. Cd ito the `./newServer/sqlite/` directory
-7. Run `node import` - it will initialize and fed db with sample data from `data.json`
-8. Run `npm run start` to run backend server
-9. Go to `front` directory
-10. Run `npm run dev` to run frontend
-11. Enjoy!
+6. Run `node import` - it will initialize and fed db with sample data from `data.json`
+7. Run `npm run start` to run backend server
+8. Go to `front` directory
+9. Run `npm run dev` to run frontend
+10. Enjoy!
 
 License
 
-This project is licensed. See the LICENSE file for more information.
+This project is not licensed.
